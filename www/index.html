@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QR Code Reader</title>
+  <script src="components/loader.js"></script>
+
+  <script src="js/zepto.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/collection.js"></script>
+  <script src="js/test.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfEDd8hvz5TVWFnhwikcQchFl00CSm724" async defer></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/animate.css">
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.css">
+  
+  <script>
+    // PhoneGap event handler
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+    //getLocation();
+  
+
+// var ft = new FileTransfer();
+// ft.upload(fileURL, encodeURI("http://t3.moocu.cc/ed/TaipeiOpenCityHackthon/public/uploadFileToList"), win_file, fail_file, options_file);
+       // scanBarcode();
+    }
+    // 「スキャンする」を押したときに実行される関数
+    function scanBarcode() {
+      // BarcodeScannerプラグインを利用してスキャン
+      window.plugins.barcodeScanner.scan(
+        // 成功時に実行されるコールバック（キャンセル時も含む）
+        function(result) {
+          // キャンセルされたら何もしない
+          if (result.cancelled) {
+            return;
+          }
+        $.ajax({url: "http://192.168.16.202:80/scene/" + result.text, success: function(result){
+        }});          
+        },
+        // エラー時に実行されるコールバック
+        function(error) {
+
+        }
+      );
+
+    }
+  </script>
+</head>
+<body>
+<div class="header">
+    <p>台北.開放.好城市</p>
+    <div class="header__list-icon" id="userListOpen"><i class="fa fa-bars"></i></div>
+</div>
+<div class="main">
+    <div class="get-recode -pic" id="recordVideo">
+        <div class="get-recode__icon " >
+             <i class="fa fa-video-camera fa-2x"></i><br>
+             <b>錄影</b>
+        </div>
+       
+        <small>點擊螢幕開啟</small>
+    </div>
+    <div class="get-recode -pic" id="recordImage">
+        <div class="get-recode__icon" >
+             <i class="fa fa-camera fa-2x"></i><br>
+             <b>拍照</b>
+        </div>
+       
+        <small>點擊螢幕開啟</small>
+    </div>
+    <div class="get-recode" id="getPosition">
+        <div class="get-recode__icon" >
+             <i class="fa fa-map-marker"></i><br>
+             <b>地點</b>
+        </div>
+       <input class="get-locate__input" type="text" name="locate" value ="台北市松山區120巷"/><br>
+       <small>這是你的位置?</small><i class="get-recode__check fa fa-check-circle-o fa-lg" id="setLocation" ></i>
+    </div>
+     <div class="get-recode" id="getTitle">
+        <div class="get-recode__icon" >
+             <i class="fa fa-pencil"></i><br>
+             <b>標題</b>
+        </div>
+       <input class="get-locate__input" type="text" name="title" placeholder="垃圾已滿"/><br>
+       <small>城市感覺因為您更美好了一些</small><br>
+       <a id="setTitle" onclick="setCaseTitle()">
+        <i class="get-recode__check fa fa-check-circle-o fa-lg" ></i>
+       </a>
+    </div>
+    <div class="get-recode" id="getDescription">
+        <div class="get-recode__icon" >
+             <i class="fa fa-file-text-o"></i><br>
+             <b>描述</b>
+        </div>
+       <input class="get-locate__input" type="text" name="description" placeholder="台北.開放.好城市"/><br>
+       <small>加點敘述加速案件處理優</small><i class="get-recode__check fa fa-check-circle-o fa-lg" id="setDescription" ></i>
+          
+    </div>
+    
+    <div class="get-btns" id="getCollections">
+        <h1>選擇通報種類</h1>
+        <div class="btn-items">
+            <i class="fa fa-taxi fa-lg" id="policeStation"></i><br>
+            <small>生活安全</small>
+        </div>
+        <div class="btn-items">
+            <i class="fa fa-heartbeat fa-lg" id="health"></i><br>
+            <small>醫療保健</small>
+        </div>
+        <div class="btn-items">
+            <i class="fa fa-subway fa-lg" id="transportation"></i><br>
+            <small>交通</small>
+        </div>
+        <div class="btn-items">
+            <i class="fa fa-wifi fa-lg" id="communication"></i><br>
+            <small>通訊</small>
+        </div><div class="btn-items">
+            <i class="fa fa-paw fa-lg" id="strays"></i><br>
+            <small>流浪生物</small>
+        </div><div class="btn-items">
+            <i class="fa fa-trash fa-lg" id="environment"></i><br>
+            <small>公共環境</small>
+        </div>
+        <div class="btn-items">
+            <i class="fa fa-home fa-lg" id="house"></i><br>
+            <small>居家生活</small>
+        </div><div class="btn-items">
+            <i class="fa fa-tree fa-lg" id="travial"></i><br>
+            <small>休閒旅遊</small>
+        </div><div class="btn-items">
+            <i class="fa fa-futbol-o fa-lg" id="sport"></i><br>
+            <small>運動</small>
+        </div>
+           
+
+    </div>
+    
+    <div class="get-recode" id="progress">
+           <div class="get-recode__icon" >
+             <i class="fa fa-spinner fa-pulse fa-2x"></i><br>
+             <b>處理中</b>
+        </div>
+        
+    </div>
+    
+    <div class="user-list animated slideInDown" id="userList">
+        
+        <div class="user-list__main" id="userCaseLists">
+            <ul class="user-list__tab">
+                <li id="openUsersCastLi" class="user-list__tab--li active"><a onclick="openUsersList()">您通報的</a></li> |
+                <li id="openUsersNearLi" class="user-list__tab--li"><a onclick="openUsersNearList()">你附近的</a></li>
+            </ul>
+           
+            <div class="user-list__display" id="usersCaseList"> </div>
+            <div class="user-list__display" id="userNearList"> </div>
+            
+        </div>
+        
+        
+        <div class="user-list__main" id="userCaseDetail">
+            <ul class="user-list__tab">
+                <li class="user-list__tab--li active"><a onclick="backCaseList()">BACK</a></li>
+            </ul>
+            <div class="user-list__display">
+                <h1 id="result_title">垃圾已滿</h1>
+                <lab class="user-list__item--status -wait">待處理</lab><Br>
+                <img class="user-case__img" id="result_image"/>
+                
+                <p class="user-case__p" id="result_descrp"></p>
+                            <div class="map" id="map" style="width:50%;height:300px;" ></div>
+                <lab>2016-06-26  </lab>
+                <lab>&nbsp;台北縣內湖區250巷</lab>
+    
+            </div>
+        </div>
+        <div class="user-list__close" id="userListClose">
+            <i class="fa fa-angle-double-up fa-2x"></i>
+        </div>
+    </div>
+    <div class="popUp" id="login">
+        <div class="popUp__login">
+        <h1>第一次需要您的一些資訊</h1>
+            <input class="popUp__input" type="text" name="phone" placeholder="手機號碼"/><br>
+            <input class="popUp__input" type="text" name="secreat_id" placeholder="身分證"/><br>
+            <button class="popUp__btn" onclick="checkAndLogin()">送出</button>
+        </div>
+    </div>
+    
+    
+    
+</div>
+<!-- <div id="wrapper">
+    <button id="StartButton" type="button">開始<br>錄影</button>
+    <button id="StopButton" type="button" style="display:none;" >停止<br> 錄影</button>-->
+    <!--<button id="RecordVideo" type="button">錄影</button>
+    <br />
+    <br />
+    <button id="RecordImage" type="button">照相</button>
+    <br />
+    <br />
+    <button id="GetPosition" type="button">定位</button>
+</div>-->
+<!-- <div id="map_canvas"  style="height: 300px; ">1234</div>-->
+<!-- <div id="RescanQRCodeContainer">-->
+   <!-- <button id="RescanQRCode" type="button">重新掃描 <br >QR Code</button> 
+</div>-->
+
+ 
+</body>
+   
+</html>
