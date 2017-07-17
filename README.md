@@ -1,5 +1,5 @@
-# Taipei Open City Hackthon
-2016 Taipei Open City Hackthon(台北．開放．好城市)
+# Taipei Smart city Hackthon
+2016 Taipei Open City (台北．開放．好城市)
 
 ** Main features **
 
